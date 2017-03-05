@@ -8,6 +8,7 @@ This library creates a simple way to include ORCID profile information. It (curr
 
 Hello World Example
 -------------------
+```
 <!DOCTYPE html>
 <html>
 <head>
@@ -26,8 +27,7 @@ Hello World Example
 </script>
 
 </html>
-
-
+```
 
 Compatibility
 -------------
