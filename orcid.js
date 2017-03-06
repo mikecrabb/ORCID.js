@@ -41,8 +41,7 @@ function createORCIDProfile(orcidID, elementID) {
                         }
 
                         //PUBLICATION YEAR
-                        if (data["orcid-profile"]["orcid-activities"]["orcid-works"]["orcid-work"][i]["publication-date"].year.value != null) {
-                            var publicationYear = data["orcid-profile"]["orcid-activities"]["orcid-works"]["orcid-work"][i]["publication-date"].year.value;
+                            if (data["orcid-profile"]["orcid-activities"]["orcid-works"]["orcid-work"][i]["publication-date"] != null) {
                         }
                         else {
                             var publicationYear = "";
