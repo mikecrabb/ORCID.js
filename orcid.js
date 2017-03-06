@@ -5,7 +5,7 @@
 
 function createORCIDProfile(orcidID, elementID) {
 
-    var ORCIDLink = "http://pub.orcid.org/"+orcidID+"/orcid-works";
+    var ORCIDLink = "https://pub.orcid.org/v2.0/"+orcidID+"/works";
 
     fetch(ORCIDLink,
 
@@ -26,37 +26,34 @@ function createORCIDProfile(orcidID, elementID) {
                 response.json().then(function (data) {
 
                     var output = "";
-                    for (var i in data["orcid-profile"]["orcid-activities"]["orcid-works"]["orcid-work"]) {
+                    for (var i in data.group) {
                         //PAPER NAME
-                        if (data["orcid-profile"]["orcid-activities"]["orcid-works"]["orcid-work"][i]["work-title"].title.value != null) {
-                            var publicationName = data["orcid-profile"]["orcid-activities"]["orcid-works"]["orcid-work"][i]["work-title"].title.value;
+                        if (data.group[i]["work-summary"]["0"].title.title.value != null) {
+                            var publicationName = data.group[i]["work-summary"]["0"].title.title.value;
                         }
 
-                        //JOURNAL TITLE
-                        if (data["orcid-profile"]["orcid-activities"]["orcid-works"]["orcid-work"][i]["journal-title"] != null) {
-                            var journalTitle = data["orcid-profile"]["orcid-activities"]["orcid-works"]["orcid-work"][i]["journal-title"].value;
-                        }
-                        else {
-                            var journalTitle = "";
-                        }
 
                         //PUBLICATION YEAR
-                            if (data["orcid-profile"]["orcid-activities"]["orcid-works"]["orcid-work"][i]["publication-date"] != null) {
+                        if (data.group[i]["work-summary"]["0"]["publication-date"].year.value != null) {
+                            var publicationYear = data.group[i]["work-summary"]["0"]["publication-date"].year.value;
                         }
                         else {
                             var publicationYear = "";
                         }
 
                         //DOI REFERENCE
-                        if (data["orcid-profile"]["orcid-activities"]["orcid-works"]["orcid-work"][i]["work-external-identifiers"] != null) {
-                            var doiReference = data["orcid-profile"]["orcid-activities"]["orcid-works"]["orcid-work"][i]["work-external-identifiers"]["work-external-identifier"]["0"]["work-external-identifier-id"].value;
-                        }
-                        else {
-                            var doiReference = "";
-                        }
+                         if (data.group[i]["external-ids"] != null) {
+                             var doiReference = data.group[i]["external-ids"]["external-id"]["0"]["external-id-value"];
+                         }
+                         else {
+                             var doiReference = "";
+                         }
+
+
 
                         output += "<p><strong>" + publicationName + "</strong>";
-                        output += "<em> " + journalTitle;
+                      //  output += "<em> " + journalTitle;
+                        // todo Journal Title was removed in APIv2...need to find out how to include it again
                         output += " (" + publicationYear + ")</em>";
                         output += " <a href='https://doi.org/" + doiReference + "'> " + doiReference + "</a></p>";
                     }
@@ -64,8 +61,8 @@ function createORCIDProfile(orcidID, elementID) {
                     output += "</ul>";
                     document.getElementById(elementID).innerHTML = output;
 
-                    //DEBUG!
-                    //console.log(data);
+                    ////DEBUG!
+                    console.log(data);
                 });
             }
         )
