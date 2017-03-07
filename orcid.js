@@ -5,7 +5,7 @@
 
 function createORCIDProfile(orcidID, elementID) {
 
-    var ORCIDLink = "https://pub.orcid.org/v2.0/"+orcidID+"/works";
+    var ORCIDLink = "https://pub.orcid.org/v2.0/" + orcidID + "/works";
 
     fetch(ORCIDLink,
 
@@ -42,27 +42,58 @@ function createORCIDProfile(orcidID, elementID) {
                         }
 
                         //DOI REFERENCE
-                         if (data.group[i]["external-ids"] != null) {
-                             var doiReference = data.group[i]["external-ids"]["external-id"]["0"]["external-id-value"];
-                         }
-                         else {
-                             var doiReference = "";
-                         }
+                        if (data.group[i]["external-ids"] != null) {
+                            var doiReference = data.group[i]["external-ids"]["external-id"]["0"]["external-id-value"];
+                        }
+                        else {
+                            var doiReference = "";
+                        }
 
+                        //JOURNAL NAME
+                        var putcode = data.group[i]["work-summary"]["0"]["put-code"];
+                        //console.log(journalTitle);
 
-
-                        output += "<p><strong>" + publicationName + "</strong>";
-                      //  output += "<em> " + journalTitle;
+                        output += "<p><span id='publication_" + i + "'><strong>" + publicationName + "</strong>";
                         // todo Journal Title was removed in APIv2...need to find out how to include it again
-                        output += " (" + publicationYear + ")</em>";
+                        output += " (" + publicationYear + ") </em></span>";
                         output += " <a href='https://doi.org/" + doiReference + "'> " + doiReference + "</a></p>";
+                        getJournalTitle(orcidID, putcode, i);
+
                     }
 
                     output += "</ul>";
                     document.getElementById(elementID).innerHTML = output;
 
                     ////DEBUG!
-                    console.log(data);
+                    //console.log(data);
+                });
+            }
+        )
+        .catch(function (err) {
+            console.log('Fetch Error :-S', err);
+        });
+}
+
+function getJournalTitle(orcidID, journalID, i) {
+    var ORCIDLink = "https://pub.orcid.org/v2.0/" + orcidID + "/work/" + journalID;
+    fetch(ORCIDLink,
+        {
+            headers: {
+                "Accept": "application/orcid+json"
+            }
+        })
+        .then(
+            function (response) {
+                if (response.status !== 200) {
+                    console.log('Looks like there was a problem. Status Code: ' +
+                        response.status);
+                    return;
+                }
+                response.json().then(function (data) {
+                    if (data["journal-title"] != null) {
+                        var output = data["journal-title"].value;
+                        document.getElementById("publication_" + i).innerHTML = document.getElementById("publication_" + i).innerHTML + output;
+                    }
                 });
             }
         )
