@@ -37,7 +37,7 @@ function createORCIDProfile(orcidID, elementID) {
 
 
                         //PUBLICATION YEAR
-                        if (data.group[i]["work-summary"]["0"]["publication-date"].year.value != null) {
+                        if (data.group[i]["work-summary"]["0"]["publication-date"] != null) {
                             var publicationYear = data.group[i]["work-summary"]["0"]["publication-date"].year.value;
                         }
                         else {
