@@ -25,6 +25,9 @@ function createORCIDProfile(orcidID, elementID) {
                 // Examine the text in the response
                 response.json().then(function (data) {
 
+                    ////DEBUG!
+                    console.log(data);
+
                     var output = "";
                     for (var i in data.group) {
                         //PAPER NAME
@@ -42,7 +45,7 @@ function createORCIDProfile(orcidID, elementID) {
                         }
 
                         //DOI REFERENCE
-                        if (data.group[i]["external-ids"] != null) {
+                        if (data.group[i]["external-ids"]["external-id"]["length"] != 0) {
                             var doiReference = data.group[i]["external-ids"]["external-id"]["0"]["external-id-value"];
                         }
                         else {
@@ -54,7 +57,6 @@ function createORCIDProfile(orcidID, elementID) {
                         //console.log(journalTitle);
 
                         output += "<p><span id='publication_" + i + "'><strong>" + publicationName + "</strong>";
-                        // todo Journal Title was removed in APIv2...need to find out how to include it again
                         output += " (" + publicationYear + ") </em></span>";
                         output += " <a href='https://doi.org/" + doiReference + "'> " + doiReference + "</a></p>";
                         getJournalTitle(orcidID, putcode, i);
@@ -63,9 +65,6 @@ function createORCIDProfile(orcidID, elementID) {
 
                     output += "</ul>";
                     document.getElementById(elementID).innerHTML = output;
-
-                    ////DEBUG!
-                    //console.log(data);
                 });
             }
         )
