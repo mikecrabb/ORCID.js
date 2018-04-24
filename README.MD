@@ -5,6 +5,10 @@ ORCID.js
 
 This library creates a simple way to include ORCID profile information. It (currently) works using the javascript fetch() method.
 
+Currently implemented features are:
+- List of Publications
+- List of Funding
+
 ##Hello World Example
 
 ```
@@ -18,11 +22,16 @@ This library creates a simple way to include ORCID profile information. It (curr
 </head>
 
 <body>
-    <div id="myPublications"></div>
+<h1>Publications</h1>
+<div id="myPublications"></div>
+
+<h1>Funding</h1>
+<div id="myFunding"></div>
 </body>
 
 <script>
     createORCIDProfile("0000-0002-9563-0691","myPublications");
+    createORCIDFundingProfile("0000-0002-9563-0691", "myFunding");
 </script>
 
 </html>
