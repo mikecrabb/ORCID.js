@@ -1,17 +1,26 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width">
-    <title>ORCID DEMO</title>
-    <script src="orcid.js"></script>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>ORCID DEMO</title>
+  <script src="orcid.js"></script>
 </head>
+
 <body>
-<div id="myPublications"></div>
+  <h1>Publications</h1>
+  <div id="myPublications"></div>
+
+  <h1>Funding</h1>
+  <div id="myFunding"></div>
+
 
 </body>
 
 <script>
-    createORCIDProfile("0000-0002-9563-0691", "myPublications");
+  createORCIDProfile("0000-0002-9563-0691", "myPublications");
+  createORCIDFundingProfile("0000-0002-9563-0691", "myFunding");
 </script>
+
 </html>
