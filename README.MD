@@ -1,7 +1,7 @@
 ORCID.js
 ========
 
-##Client Side ORCID Generator
+## Client Side ORCID Generator
 
 This library creates a simple way to include ORCID profile information. It (currently) works using the javascript fetch() method.
 
@@ -9,9 +9,9 @@ Currently implemented features are:
 - List of Publications
 - List of Funding
 
-##Hello World Example
+## Hello World Example
 
-```
+```html
 <!DOCTYPE html>
 <html>
 <head>
@@ -37,10 +37,10 @@ Currently implemented features are:
 </html>
 ```
 
-##Compatibility
+## Compatibility
 
 There are some <a href="http://caniuse.com/#feat=fetch">compatibility issues</a> with using this library as it relies on fetch() instead of XMLHttpRequest.
 
-##Licence
+## Licence
 * This is made available and licensed under the MIT License:
  * https://opensource.org/licenses/mit-license.html
